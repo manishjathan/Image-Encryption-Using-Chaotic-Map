@@ -1,8 +1,8 @@
-from PIL import Image, ImageOps
+from PIL import Image
 im = Image.open("SampleImage.jpg") #Can be many different formats.
 pix = im.load()
 
-def getImageMatrix(colorValue):
+def getImageMatrix():
     image_size = im.size #Get the width and hight of the image for iterating over
     print("Image Size : ",image_size)
     image_matrix = []
@@ -11,19 +11,19 @@ def getImageMatrix(colorValue):
         for height in range(int(image_size[1])):
            try:
                #Getting only the blue pixels
-                row.append((pix[width,height][colorValue]))
+                row.append((pix[width,height]))
            except:
-                row=[pix[width, height][colorValue]]
+                row=[pix[width, height]]
         try:
             image_matrix.append(row)
         except:
             image_matrix = [row]
 
-    file = open(str(colorValue) +".csv","w")
+    file = open("ImageMatrix.csv","w")
     file.write(str(image_matrix))
     file.close()
     return image_matrix
 
 
-
+imageMatrix = getImageMatrix()
 
