@@ -7,6 +7,7 @@
 import createImageMatrix as cim
 import generateHenonMap as ghm
 from PIL import Image
+import os
 
 def decryptHenonImage(imageName):
     imageMatrix = cim.getImageMatrix(imageName)
@@ -32,4 +33,5 @@ def decryptHenonImage(imageName):
         for y in range(512):
             pix[x, y] = henonDecryptedImage[x][y]
     im.save("HenonDecryptedImage.bmp", "BMP")
-    return henonDecryptedImage
+    #return henonDecryptedImage
+    return os.path.abspath("HenonDecryptedImage.bmp")
