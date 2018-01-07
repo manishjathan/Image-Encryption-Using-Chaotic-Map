@@ -1,2 +1,2 @@
 # Image-Encryption-Using-Chaotic-Map
-![Image Encryption UI](Image Encryption UI.png)
+![Inverted Index UI](Image Encryption UI.png)
