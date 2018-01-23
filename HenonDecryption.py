@@ -27,10 +27,13 @@ def decryptHenonImage(imageName):
         except:
             henonDecryptedImage = [row]
 
-    im = Image.new("L", (512, 512))
+    width  = len(imageMatrix[0])
+    height = len(imageMatrix)
+
+    im = Image.new("L", (width, height))
     pix = im.load()
-    for x in range(512):
-        for y in range(512):
+    for x in range(width):
+        for y in range(height):
             pix[x, y] = henonDecryptedImage[x][y]
     im.save("HenonDecryptedImage.bmp", "BMP")
     #return henonDecryptedImage

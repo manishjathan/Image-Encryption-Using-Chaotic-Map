@@ -1,8 +1,9 @@
 from PIL import Image
-im = Image.open("SampleImage.jpg") #Can be many different formats.
-pix = im.load()
 
-def getImageMatrix():
+
+def getImageMatrix(imageName):
+    im = Image.open(imageName)
+    pix = im.load()
     image_size = im.size #Get the width and hight of the image for iterating over
     print("Image Size : ",image_size)
     image_matrix = []
@@ -25,5 +26,5 @@ def getImageMatrix():
     return image_matrix
 
 
-imageMatrix = getImageMatrix()
+#imageMatrix = getImageMatrix()
 

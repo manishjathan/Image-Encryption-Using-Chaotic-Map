@@ -1,18 +1,24 @@
 from tkinter import *
 from tkinter import filedialog
 import os
-import HenonDecryption as hD
-import ArnoldDecryption as aD
+import generateArnoldMap as gam
+import ImageTransformation as iT
 from PIL import ImageTk, Image
 
 def choose_File():
     filename = filedialog.askopenfilename()
     entry1.insert(0,str(filename))
 
-def decryptArnoldShuffle():
+def performArnoldShuffle():
     filePath = entry1.get()
+    #print(filename)
+    fileNameArr = filePath.split("/")
+    fileName = fileNameArr[len(fileNameArr)-1]
+    print(fileName)
+    absFilePath = os.path.abspath(fileName)
+    print(absFilePath)
 
-    im = Image.open(filePath)
+    im = Image.open(absFilePath)
     image_size = im.size
 
     width = image_size[0]
@@ -21,21 +27,22 @@ def decryptArnoldShuffle():
     numberOfIterations = int(entry5.get())
     modN = int(entry6.get())
 
-    resImage = aD.decryptArnoldImage(width,height,numberOfIterations,modN,filePath)
+    mapList = gam.driverProgram(width,height,numberOfIterations,modN)
+    imageMatrix = gam.cim.getImageMatrix(absFilePath)
+    resImage = gam.createArnoldCatImage(imageMatrix,mapList,width,height)
     entry2.insert(0,resImage)
 
-
-def decryptHenonManipulation():
+def performHenonManipulation():
     filename = entry1.get()
-    resImage = hD.decryptHenonImage(filename)
+    resImage = iT.pixelManipulation(512, filename)
     entry3.insert(0,resImage)
     #print(filename)
 
-def performEntireDecryption():
-    hD.decryptHenonImage()
-    filename = entry3.get()
-    resImage = aD.decryptArnoldImage(filename)
-    entry2.insert(0, resImage)
+def performEntireEncryption():
+    performArnoldShuffle()
+    filename = entry2.get()
+    resImage = iT.pixelManipulation(512, filename)
+    entry3.insert(0, resImage)
     entry4.insert(0, resImage)
 
 
@@ -71,13 +78,13 @@ Frame2.pack(side=TOP)
 Frame3 = Frame(root)
 Frame3.pack(side=TOP)
 
-Frame4= Frame(root)
-Frame4.pack(side=TOP)
+Frame4 = Frame(root)
+Frame4.pack(side =TOP)
 
 Frame5 = Frame(root)
-Frame5.pack(side = TOP)
+Frame5.pack(side=TOP)
 
-label_1 = Label(Frame1, text ="Image to be Decrypted : ",width = 125)
+label_1 = Label(Frame1, text ="Image to be Encrypted : ",width = 125)
 entry1 = Entry(Frame1,width =100)
 button1 = Button(Frame1, text = "Select Image",command = choose_File)
 
@@ -87,17 +94,17 @@ entry5 = Entry(Frame2,width = 80)
 label_3 = Label(Frame2,text = "Value of mod N:")
 entry6 = Entry(Frame2,width = 80)
 
-button2 = Button(Frame3, text = "Decrypt Arnold Cat Map",command = decryptArnoldShuffle,width=20)
+button2 = Button(Frame3, text = "Generate Arnold Cat Map",command = performArnoldShuffle,width=20)
 entry2 = Entry(Frame3,width =80)
 button3 = Button(Frame3, text="Open Image",command = openFileForArnold)
 
-button4 = Button(Frame4, text="Decrypt Henon Map",command = decryptHenonManipulation,width=20)
+button4 = Button(Frame4, text="Generate Henon Map",command = performHenonManipulation,width=20)
 entry3 = Entry(Frame4,width =80)
 button5 = Button(Frame4, text="Open Image",command = openFileForHenon)
 
-button6 = Button(Frame5, text="Perform Decryption",command = performEntireDecryption,width=20)
+button6 = Button(Frame5, text="Perform Encryption",command = performEntireEncryption,width=20)
 entry4 = Entry(Frame5,width=80)
-button7 = Button(Frame5, text="Open Image",command = openFileForArnold)
+button7 = Button(Frame5, text="Open Image",command = openFileForHenon)
 
 label_1.pack(side = TOP)
 entry1.pack(side = TOP)

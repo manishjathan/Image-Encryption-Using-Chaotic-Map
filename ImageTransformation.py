@@ -1,5 +1,6 @@
 import generateHenonMap as ghm
 from PIL import Image
+import os
 
 def pixelManipulation(size,imageName):
     imageMatrix = ghm.getImageMatrix(imageName)
@@ -38,6 +39,7 @@ def pixelManipulation(size,imageName):
         for y in range(size):
             pix[x, y] = resultantMatrix[x][y]
     im.save("HenonTransformedImage.bmp", "BMP")
+    absPath = os.path.abspath("HenonTransformedImage.bmp")
+    return absPath
 
-
-pixelManipulation(512,"lena_gray")
+#pixelManipulation(512,"test.bmp")

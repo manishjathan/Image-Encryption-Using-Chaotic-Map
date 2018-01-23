@@ -1,10 +1,8 @@
 from PIL import Image
-im = Image.open("lena_gray.bmp") #Can be many different formats.
-pix = im.load()
 
-print("Pixel Value of 0,0 : ",pix[0,0])
-
-def getImageMatrix():
+def getImageMatrix(image):
+    im = Image.open(image)  # Can be many different formats.
+    pix = im.load()
     image_size = im.size #Get the width and hight of the image for iterating over
     print("Image Size : ",image_size)
     image_matrix = []
@@ -20,14 +18,11 @@ def getImageMatrix():
             image_matrix.append(row)
         except:
             image_matrix = [row]
-
-    file = open("LenaImageMatrix.csv","w")
-    file.write(str(image_matrix))
-    file.close()
+    # Not able to perform file operations when imported into another module
+    #file = open("LenaImageMatrix.csv","w")
+    #file.write(str(image_matrix))
+    #file.close()
     return image_matrix
-
-
-imageMatrix = getImageMatrix()
 
 
 def dec(bitSequence):
@@ -37,11 +32,7 @@ def dec(bitSequence):
     return decimal
 
 
-import numpy as np
-import matplotlib.pyplot as plt
-
-
-
+#Takes size of the image as an input
 def genTransformationMatrix(m):
     #Replace Hardcoded Pixel Values
     #Serves as the initial Parameter and also the symmetric secret key
@@ -78,23 +69,23 @@ def genTransformationMatrix(m):
                 byteArray.append(decimal)
             except:
                 byteArray = [decimal]
-            #print(bitSequence,byte)
+            print(bitSequence,decimal)
             bitSequence = []
         #ByteArray is inserted into TImageMatrix
-        if i % m*8 == 4095:
+        byteArraySize = m*8
+        if i % byteArraySize == byteArraySize-1:
             print(byteArray)
             try:
                 TImageMatrix.append(byteArray)
             except:
                 TImageMatrix = [byteArray]
-            #print(len(byteArray),byteArray)
+            print(len(byteArray),byteArray)
             byteArray = []
 
         #TImageMatrix is written into below FIle
-        file = open("LenaTranformationMatrix.csv", "w")
-        file.write(str(TImageMatrix))
-        file.close()
-
-
-
+        # Not able to perform file operations when imported into another module
+        #file = open("LenaTranformationMatrix.csv", "w")
+        #file.write(str(TImageMatrix))
+        #file.close()
+    return TImageMatrix
 
