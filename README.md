@@ -15,5 +15,12 @@
 * Run Image Decryption UI.py for decrypting an image.
 * Follow steps similar to encryption but in reverse order.
 
+### Image Encryption UI
 ![Image Encryption UI](ImageEncryptionUI.png)
+<br />
+<br />
+### Encrypted Images
+* Input Image
+* Arnold Cat Image
+* Henon Map Image
 ![Encryption Process](EncryptionProcess.png)
